@@ -1,69 +1,68 @@
-% How much caffeine is there in the jar?
+% 20220823
 
-% n - number of days
-% x - fraction of caffeinated 
-
-nMax = 22; % max number of days to simulate
-
-N = 10; % number of scoops in each jar
-x = zeros(1,nMax); % fraction caffeinated
-y = zeros(1,nMax)
-x(1) = 0.1; % initial fraction caffeinated
-y(1) = 0.1
-
+nMax = 22; % max number to simulate
+x = zeros(1,nMax); % establish blank array
+y = zeros(1,nMax);
+x(1) = 0.1; 
+y(1) = 0.1;
 for n=2:nMax
-    
-    %x(n-1) = (1-1/N) * x(n-1);
-    %x(n) = x(n-1) - 1/N*x(n-1);
-    x(n) = x(n-1)^2 - y(n-1)^2 -0.8
-    y(n) = 2*x(n-1)*y(n-1) + 0.156
-end % finished loop through days
+    x(n) = x(n-1)^2 - y(n-1)^2 -0.8;
+    y(n) = 2*x(n-1)*y(n-1) + 0.156;
+end 
 
-% THE MODEL ^
-% ------------------------------------------
-% THE BEHAVIOR / THE OUTPUT ? 
+figure(1)
+plot(x,'-ok');
+ylabel('x');
+xlabel('n');
 
-% figure(1); 
-% plot(x,'-ok');
-% ylabel('x fraction caffeinated')
-% xlabel('Days')
+figure(2)
+plot(y,'-ok');
+ylabel('y');
+xlabel('n'); % task a and b
 
-%figure(2);
-%plot(y,'-ok');
-%ylabel('y fraction caffeinated')
-%xlabel('Days')
+figure(3) 
+plot(x, y, 'kx');
+ylabel('y');
+xlabel('x'); % task c
 
-%figure(3); 
-%plot(x, y, 'kx');
-%ylabel('y')
-%xlabel('x')
+xStart = 4*rand(1, 100) -2;
+yStart = 4*rand(1, 100) -2;
+figure(4)
+plot(xStart, yStart,'kx') %task d
 
-%xStart = rand([-2 2], [1,100]),
-%yStart = rand([-2 2], [1,100]),
+figure(5)
+meow(100, -0.8, 0.156); % task e
 
-xStart = 4*rand(1, 100) -2,
-yStart = 4*rand(1, 100) -2,
-%figure(1)
-%plot(xStart, yStart,'kx')
-z = ones(1, 100)
+figure(6)
+meow(100000, -0.8, 0.156); % task f
 
-for i=1:100
- x(1)= xStart(i),
- y(1)= yStart(i),
- nMax = 22,
+figure(7)
+meow(100000, -0.7, 0.17);
 
-  for n=2:nMax
-    x(n) = x(n-1)^2 - y(n-1)^2 -0.8
-    y(n) = 2*x(n-1)*y(n-1) + 0.156
+figure(8)
+meow(100000, -0.9, 0.149); % task g
+
+
+function p=meow(m, c, d)
+xxStart = 4*rand(1, m) -2;
+yyStart = 4*rand(1, m) -2;
+xx = zeros(1, 22); 
+yy = zeros(1, 22);
+for i=1:m
+ xx(1)= xxStart(i);
+ yy(1)= yyStart(i);
+  for n=2:22
+    xx(n) = xx(n-1)^2 - yy(n-1)^2 + c;
+    yy(n) = 2*xx(n-1)*yy(n-1) + d;
   end
  
-  if ((-2 <= x(22)) && (x(22) <= 2) && (-2 <= y(22)) && (y(22) <= 2))
-      z(i) = true;
-  else 
-      z(i) = false; 
+ if ((-2 <= xx(22)) && (xx(22) <= 2) && (-2 <= yy(22)) && (yy(22) <= 2))
+      p=plot(xxStart(i),yyStart(i),'r.');
+      hold on;
+ else 
+      p=plot(xxStart(i),yyStart(i),'b.');
+      hold on; 
   end
 end
-
-plot(xStart(z(i)), yStart(z(i)),'r')
-hold on,
-
+hold off;
+end
