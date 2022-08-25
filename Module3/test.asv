@@ -1,0 +1,14 @@
+x = zeros(1,100);
+x(1) = 1;
+r_value=randperm(5)/5;
+r = r_value(1:10);
+for i = 1:10
+    
+ K = 0.6;
+ for n=1:100
+  x(n+1) = x(n) + r*(1-x(n)/K)*x(n);
+ end
+end
+
+figure(1)
+plot(x)

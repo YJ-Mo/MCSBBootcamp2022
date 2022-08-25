@@ -6,30 +6,19 @@ z = zeros(1, m);
 
 xStart = 4*rand(1, m) - 2;
 yStart = 4*rand(1, m) - 2;
-figure()
+
 for i=1:m
  x(1)= xStart(i);
  y(1)= yStart(i);
   for n=2:22
     x(n) = x(n-1)^2 - y(n-1)^2 -0.8;
     y(n) = 2*x(n-1)*y(n-1) + 0.156;
-    if ((-2 <= x(22)) && (x(22) <= 2) && (-2 <= y(22)) && (y(22) <= 2))
+    if ((-2 > x(n)) || (x(n) > 2) || (-2 > y(n)) || (y(n) > 2))
        z(i) = n;
+       break
     end
   end
-  if (z(i) == 0)
-      plot(x(1),y(1),'r.')
-      hold on;
-  elseif (z(i) == 21)
-      plot(x(1),y(1),'b.')
-      hold on;
-  elseif (z(i) == 22)
-      plot(x(1),y(1),'k.')
-      hold on;
-  else 
-      plot(x(1),y(1),'w.')
-      hold on;
-  end
-hold off;
 end
 
+figure()
+scatter(xStart,yStart,1,z)

@@ -57,10 +57,10 @@ for i=1:m
   end
  
  if ((-2 <= xx(22)) && (xx(22) <= 2) && (-2 <= yy(22)) && (yy(22) <= 2))
-      p=plot(xxStart(i),yyStart(i),'r.');
+      p=plot(xxStart(i),yyStart(i),'b.');
       hold on;
  else 
-      p=plot(xxStart(i),yyStart(i),'b.');
+      p=plot(xxStart(i),yyStart(i),'r.');
       hold on; 
   end
 end
